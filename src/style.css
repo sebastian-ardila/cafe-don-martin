@@ -238,41 +238,32 @@ a { color: inherit; text-decoration: none; }
 }
 .hero__eyebrow .line { width: 48px; height: 1.5px; background: var(--habano-deep); display: inline-block; }
 
-/* ===== Lockup de marca en el hero (rehecho) =====
-   Variables para clavar la posición con un solo número:
-   --don-x  : desplazamiento horizontal de "Don"
-   --don-y  : elevación de "Don"
-   --m-shift: compensación del swash de la "M" para alinearla a la izquierda */
+/* ===== Marca del hero — "Don Martín · CAFÉ" en una línea ===== */
 .hero__kicker {
   font-size: .78rem; letter-spacing: .32em; text-transform: uppercase;
-  color: var(--habano-deep); font-weight: 600; margin-bottom: 1.1rem;
+  color: var(--habano-deep); font-weight: 600; margin-bottom: 1.4rem;
   display: flex; align-items: center; gap: .9rem;
 }
 .hero__kicker::before {
   content: ""; width: 42px; height: 1.5px; background: var(--habano-deep); display: inline-block;
 }
 .hero__brand {
-  --don-x: .2em;
-  --don-y: -.05em;
-  --m-shift: .14em;
-  display: inline-flex; flex-direction: column; align-items: flex-start;
-  color: var(--green); margin: 0 0 1.8rem;
-}
-.hero__brand-don {
-  font-family: var(--font-script); font-size: clamp(1.4rem, 3.4vw, 2.4rem);
-  line-height: 1; color: var(--habano-deep);
-  margin-left: var(--don-x); margin-bottom: -.06em;
-  transform: translateY(var(--don-y)) rotate(-5deg); transform-origin: left center;
+  display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1.3rem;
+  line-height: 1; margin: 0 0 1.8rem;
 }
 .hero__brand-name {
-  font-family: var(--font-script); font-size: clamp(3.4rem, 12vw, 9rem);
-  line-height: .98; color: var(--green); margin-left: var(--m-shift);
+  font-family: var(--font-script); font-size: clamp(2.6rem, 8.5vw, 6.5rem);
+  line-height: 1.05; color: var(--green); white-space: nowrap;
+}
+.hero__brand-name .don { color: var(--habano-deep); margin-right: .12em; }
+.hero__brand-sep {
+  width: 2px; height: clamp(2rem, 5vw, 3.4rem); background: var(--habano-deep);
+  opacity: .5; border-radius: 2px;
 }
 .hero__brand-cafe {
   font-family: var(--font-body); font-weight: 600;
-  font-size: clamp(.8rem, 2vw, 1.3rem); letter-spacing: .5em;
-  text-transform: uppercase; color: var(--green);
-  margin-top: .5rem; margin-left: calc(var(--m-shift) + .25em);
+  font-size: clamp(.85rem, 1.7vw, 1.2rem); letter-spacing: .45em;
+  text-transform: uppercase; color: var(--green-soft);
 }
 
 .hero__sub {
