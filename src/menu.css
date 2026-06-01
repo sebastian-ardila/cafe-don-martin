@@ -1,0 +1,246 @@
+/* ============================================================
+   CAFÉ DON MARTÍN — Carta (página aparte)
+   Estilo copiado de la carta oficial: secciones verde/crema
+   alternadas, acentos coral, badges de precio y ramas de café.
+   ============================================================ */
+
+:root {
+  --green: #20402e;        /* verde bosque de la carta */
+  --green-deep: #173324;
+  --cream: #f8e7d3;        /* crema/durazno */
+  --cream-soft: #f1ddc4;
+  --coral: #df6243;        /* terracota de títulos y acentos */
+  --coral-soft: #e8917a;
+  --olive: #97a06a;        /* hojas sobre fondo verde */
+  --ink: #2c3a30;          /* texto descriptivo sobre crema */
+  --ink-soft: #5d6b5f;
+
+  --font-script: "Pacifico", cursive;
+  --font-display: "Poppins", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  --pad-x: clamp(1.1rem, 5vw, 6rem);
+  --maxw: 1180px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.menu-page {
+  font-family: var(--font-body);
+  background: var(--green);
+  color: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
+@media (hover: none) { .menu-page { cursor: auto; } }
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--coral); color: var(--cream); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--green-deep); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--coral), var(--olive)); border-radius: 10px; }
+
+/* Grain + viñeta */
+.grain {
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  opacity: 0.04; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.vignette { position: fixed; inset: 0; z-index: 9997; pointer-events: none; box-shadow: inset 0 0 240px 60px rgba(0,0,0,.18); }
+
+/* Cursor */
+.cursor, .cursor-dot { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; border-radius: 50%; transform: translate(-50%, -50%); }
+.cursor { width: 36px; height: 36px; border: 1.5px solid var(--coral); transition: width .35s var(--ease), height .35s var(--ease), background .35s, border-color .35s; }
+.cursor-dot { width: 5px; height: 5px; background: var(--coral); }
+.cursor.is-hover { width: 60px; height: 60px; background: rgba(223,98,67,.14); border-color: var(--cream); }
+@media (hover: none) { .cursor, .cursor-dot { display: none; } }
+
+/* ============================================================
+   NAV STICKY
+   ============================================================ */
+.mnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  padding: 1rem var(--pad-x);
+  transition: padding .4s var(--ease), background .4s var(--ease), box-shadow .4s;
+}
+.mnav.is-scrolled {
+  padding: .6rem var(--pad-x);
+  background: rgba(23, 51, 36, 0.88); backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(248,231,211,.12);
+}
+.mnav__back, .mnav__cta {
+  font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+  white-space: nowrap;
+}
+.mnav__back { color: var(--cream); transition: color .3s; }
+.mnav__back:hover { color: var(--coral-soft); }
+.mnav__cta { padding: .55rem 1.2rem; background: var(--coral); color: var(--cream); border-radius: 100px; transition: transform .3s, background .3s; }
+.mnav__cta:hover { transform: translateY(-2px); background: #c8543400; background: #cc5236; }
+.mnav__links { display: flex; gap: 1.4rem; overflow-x: auto; scrollbar-width: none; }
+.mnav__links::-webkit-scrollbar { display: none; }
+.mnav__links a {
+  font-size: .74rem; letter-spacing: .06em; color: rgba(248,231,211,.7); white-space: nowrap;
+  font-weight: 500; transition: color .3s; padding: .2rem 0;
+}
+.mnav__links a:hover { color: var(--coral-soft); }
+@media (max-width: 920px) { .mnav__links { display: none; } }
+
+/* ============================================================
+   PORTADA
+   ============================================================ */
+.mcover {
+  position: relative; min-height: 100svh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 6rem var(--pad-x) 3rem;
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgba(151,160,106,.12), transparent 60%),
+    var(--green);
+}
+.mcover__kicker { font-size: clamp(.85rem, 2vw, 1.1rem); color: var(--coral); letter-spacing: .04em; }
+.mcover__kicker strong { font-weight: 700; }
+.mcover__word {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(7rem, 32vw, 22rem); line-height: .8; color: var(--cream);
+  letter-spacing: -0.02em; margin: .1em 0 .1em;
+}
+.mcover__brand { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+.mcover__brand-script { font-family: var(--font-script); font-size: clamp(2rem, 6vw, 3.4rem); color: var(--coral); }
+.mcover__brand-script .don { color: var(--cream); margin-right: -.05em; }
+.mcover__brand-cafe { font-family: var(--font-body); font-weight: 600; font-size: .7rem; letter-spacing: .4em; color: var(--cream); margin-top: .2rem; padding-left: .4em; }
+.mcover__scroll {
+  margin-top: 3rem; display: inline-flex; flex-direction: column; align-items: center; gap: .8rem;
+  font-size: .74rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(248,231,211,.8); font-weight: 600;
+}
+.mcover__scroll-line { width: 1.5px; height: 50px; background: rgba(248,231,211,.25); overflow: hidden; position: relative; }
+.mcover__scroll-line i { position: absolute; top: 0; left: 0; width: 100%; height: 40%; background: var(--coral); animation: scrollDown 2s var(--ease) infinite; }
+@keyframes scrollDown { 0% { transform: translateY(-100%); } 100% { transform: translateY(250%); } }
+
+/* ============================================================
+   SECCIONES DE LA CARTA
+   ============================================================ */
+.msec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+.msec--cream { background: var(--cream); color: var(--ink); }
+.msec--green { background: var(--green); color: var(--cream); }
+.msec--cream + .msec--cream, .msec--green + .msec--green { padding-top: 0; }
+.msec__inner { position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad-x); }
+
+/* Encabezado */
+.msec__head { margin-bottom: 2rem; }
+.msec__kicker { display: block; font-size: clamp(1rem, 2.4vw, 1.4rem); font-weight: 600; letter-spacing: .01em; margin-top: .3rem; }
+.msec__title {
+  font-family: var(--font-display); font-weight: 800; line-height: .95;
+  font-size: clamp(2.6rem, 7vw, 5rem); letter-spacing: -0.02em;
+}
+.msec--cream .msec__title { color: var(--coral); }
+.msec--cream .msec__kicker { color: var(--green); order: -1; }
+.msec--green .msec__title { color: var(--cream); }
+.msec--green .msec__kicker { color: var(--coral); }
+.msec__head { display: flex; flex-direction: column; }
+.msec--cream .msec__head { } /* kicker abajo en crema (Los Negros) */
+.msec--green .msec__head .msec__kicker { order: 1; }
+
+/* Nota / intro */
+.msec__note {
+  border-top: 1px solid currentColor; border-bottom: 1px solid currentColor;
+  padding: 1rem 0; margin: 0 0 2.4rem; font-size: .92rem; line-height: 1.55; max-width: 640px;
+  border-color: rgba(248,231,211,.3);
+}
+.msec--cream .msec__note { border-color: rgba(44,58,48,.22); }
+.msec__note span { font-family: var(--font-display); font-weight: 700; }
+.msec__intro { max-width: 620px; margin: 0 0 2.4rem; line-height: 1.65; font-size: .98rem; }
+.msec--green .msec__intro { color: rgba(248,231,211,.82); }
+.msec--cream .msec__intro { color: var(--ink-soft); }
+
+/* Bloques y grupos */
+.msec__body { max-width: 720px; }
+.mblock { margin-bottom: 2.4rem; }
+.mblock:last-child { margin-bottom: 0; }
+.mblock__divider { height: 1px; background: currentColor; opacity: .22; margin: 0 0 2rem; max-width: 720px; }
+.mblock__sub { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; margin-bottom: .7rem; }
+.msec--cream .mblock__sub { color: var(--green); }
+.msec--green .mblock__sub { color: var(--cream); }
+.mblock__desc { font-size: .9rem; line-height: 1.6; margin-bottom: 1.8rem; max-width: 600px; }
+.msec--cream .mblock__desc { color: var(--ink-soft); }
+.msec--green .mblock__desc { color: rgba(248,231,211,.75); }
+.mblock__badge {
+  display: inline-block; font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--coral); margin-bottom: .8rem; line-height: 1;
+}
+
+/* Ítem de carta */
+.mblock__items { display: flex; flex-direction: column; gap: 1.5rem; }
+.mi__row { display: flex; align-items: baseline; gap: .4rem; }
+.mi__name { font-family: var(--font-display); font-weight: 700; font-size: 1.18rem; line-height: 1.15; }
+.msec--cream .mi__name { color: var(--green); }
+.msec--green .mi__name { color: var(--cream); }
+.mi__sub { font-family: var(--font-display); font-weight: 400; font-size: .92em; opacity: .9; }
+.mi__temp { font-family: var(--font-body); font-weight: 600; font-size: .56em; letter-spacing: .04em; text-transform: none; vertical-align: middle; opacity: .8; }
+.msec--cream .mi__temp { color: var(--coral); }
+.msec--green .mi__temp { color: var(--coral-soft); }
+.mi__tag {
+  display: inline-block; font-family: var(--font-body); font-weight: 700; font-size: .5em;
+  letter-spacing: .06em; text-transform: uppercase; vertical-align: middle;
+  background: var(--coral); color: var(--cream); padding: .35em .7em; border-radius: 100px; margin-left: .3em;
+}
+.mi__dots { flex: 1; border-bottom: 2px dotted; opacity: .35; transform: translateY(-.2em); min-width: 24px; }
+.mi__price {
+  font-family: var(--font-display); font-weight: 700; font-size: .95rem; white-space: nowrap;
+  padding: .35em .9em; border-radius: 100px;
+}
+.msec--cream .mi__price { background: var(--green); color: var(--cream); }
+.msec--green .mi__price { background: var(--cream); color: var(--green); }
+.mi__extra-row { text-align: right; font-family: var(--font-display); font-weight: 600; font-size: .8rem; margin-top: .3rem; }
+.msec--cream .mi__extra-row { color: var(--ink); }
+.msec--green .mi__extra-row { color: var(--coral-soft); }
+.mi__desc { font-size: .86rem; line-height: 1.55; margin-top: .5rem; max-width: 460px; }
+.msec--cream .mi__desc { color: var(--ink-soft); }
+.msec--green .mi__desc { color: var(--coral-soft); }
+.mi__options { display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin-top: .7rem; }
+.mi__options span {
+  font-size: .76rem; font-weight: 600; color: var(--coral); letter-spacing: .02em;
+  padding: .3em .8em; border: 1px solid currentColor; border-radius: 100px;
+}
+
+/* Rama decorativa */
+.msec__branch {
+  position: absolute; top: 0; right: -2%; bottom: 0; width: clamp(150px, 24vw, 300px);
+  z-index: 1; pointer-events: none; display: flex; align-items: stretch; overflow: hidden;
+}
+.msec__branch .branch { height: 108%; width: auto; margin: -4% 0; }
+.msec--cream .msec__branch { color: var(--green); --seed: var(--cream); opacity: .9; }
+.msec--green .msec__branch { color: var(--olive); --seed: var(--green); opacity: .7; }
+@media (max-width: 720px) { .msec__branch { opacity: .35 !important; right: -12%; } }
+
+/* ============================================================
+   CONTRAPORTADA / CONTACTO
+   ============================================================ */
+.mcontact {
+  position: relative; text-align: center; padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+  background:
+    radial-gradient(100% 80% at 50% 0%, rgba(151,160,106,.14), transparent 60%),
+    var(--green-deep);
+}
+.mcontact__brand { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; margin-bottom: 1.6rem; }
+.mcontact__script { font-family: var(--font-script); font-size: clamp(2.4rem, 7vw, 4rem); color: var(--cream); }
+.mcontact__script .don { color: var(--coral); margin-right: -.05em; }
+.mcontact__cafe { font-family: var(--font-body); font-weight: 600; font-size: .72rem; letter-spacing: .42em; color: var(--cream); margin-top: .25rem; padding-left: .4em; }
+.mcontact__addr { color: rgba(248,231,211,.8); font-size: .95rem; margin-bottom: .6rem; }
+.mcontact__write { font-size: 1rem; margin-bottom: 2rem; color: var(--cream); }
+.mcontact__write span { font-family: var(--font-display); font-weight: 700; }
+.mcontact__write a { color: var(--coral-soft); font-weight: 600; border-bottom: 1px solid transparent; transition: border-color .3s; }
+.mcontact__write a:hover { border-color: var(--coral-soft); }
+.mcontact__actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.4rem; }
+.mbtn { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; padding: .9rem 1.8rem; border-radius: 100px; transition: transform .3s, background .3s, color .3s; }
+.mbtn:hover { transform: translateY(-3px); }
+.mbtn--solid { background: var(--coral); color: var(--cream); }
+.mbtn--ghost { border: 1.5px solid rgba(248,231,211,.4); color: var(--cream); }
+.mbtn--ghost:hover { background: var(--cream); color: var(--green); border-color: var(--cream); }
+.mcontact__copy { font-size: .74rem; color: rgba(248,231,211,.5); letter-spacing: .04em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

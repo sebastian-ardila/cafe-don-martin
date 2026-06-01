@@ -11,36 +11,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-/* ---------------- Datos de la carta ---------------- */
-const MENU = [
-  { name: 'Espresso', price: '$5.000', desc: 'Shot intenso de origen colombiano. Cuerpo, dulzor y una crema dorada.', tag: 'Clásico' },
-  { name: 'Filtrado V60', price: '$9.000', desc: 'Método pour over que resalta las notas florales y frutales del grano.', tag: 'De origen' },
-  { name: 'Cappuccino', price: '$8.000', desc: 'Equilibrio perfecto entre espresso, leche texturizada y arte latte.', tag: 'Favorito' },
-  { name: 'Cold Brew', price: '$10.000', desc: '14 horas de extracción en frío. Suave, dulce y refrescante.', tag: 'Frío' },
-  { name: 'Latte de la casa', price: '$9.500', desc: 'Nuestro espresso con leche sedosa y un toque de panela.', tag: 'Signature' },
-  { name: 'Chemex', price: '$11.000', desc: 'Extracción limpia y delicada para los amantes del café filtrado.', tag: 'De origen' },
-]
-
-/* ---------------- Render de tarjetas ---------------- */
-function renderMenu() {
-  const grid = document.getElementById('menuGrid')
-  if (!grid) return
-  grid.innerHTML = MENU.map((m, i) => `
-    <article class="mcard">
-      <div class="mcard__top">
-        <span class="mcard__index">${String(i + 1).padStart(2, '0')}</span>
-        <span class="mcard__tag">${m.tag}</span>
-      </div>
-      <h3 class="mcard__name">${m.name}</h3>
-      <p class="mcard__desc">${m.desc}</p>
-      <div class="mcard__foot">
-        <span class="mcard__price">${m.price}</span>
-        <span class="mcard__unit">COP</span>
-      </div>
-    </article>
-  `).join('')
-}
-
 /* ---------------- Cursor personalizado ---------------- */
 function initCursor() {
   if (window.matchMedia('(hover: none)').matches) return
@@ -195,7 +165,6 @@ function initPreloader(onDone) {
 /* ---------------- Init ---------------- */
 function boot() {
   document.getElementById('year').textContent = new Date().getFullYear()
-  renderMenu()
   initCursor()
   initNav()
   initLightbox()

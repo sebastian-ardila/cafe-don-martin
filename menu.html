@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta · Café Don Martín · Café de especialidad, Pereira</title>
+  <meta name="description" content="Carta completa de Café Don Martín: cafés clásicos, especiales, fríos, bebidas con licor, cervezas, comidas, postres y más. Av. Circunvalar #5-83, Pereira." />
+  <meta name="theme-color" content="#21402f" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/menu.css" />
+</head>
+<body class="menu-page">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Nav sticky -->
+  <header class="mnav" id="menuNav">
+    <a href="./" class="mnav__back" data-hover>← Inicio</a>
+    <nav class="mnav__links" id="menuNavLinks"></nav>
+    <a href="#contacto" class="mnav__cta" data-hover>Contacto</a>
+  </header>
+
+  <!-- Portada -->
+  <section class="mcover">
+    <span class="mcover__kicker">Café de origen <strong>Don Martín</strong></span>
+    <h1 class="mcover__word">menú</h1>
+    <div class="mcover__brand">
+      <span class="mcover__brand-script"><span class="don">Don</span> Martín</span>
+      <span class="mcover__brand-cafe">C&nbsp;A&nbsp;F&nbsp;É</span>
+    </div>
+    <a href="#clasicos-negros" class="mcover__scroll" data-hover>
+      Ver la carta
+      <span class="mcover__scroll-line"><i></i></span>
+    </a>
+  </section>
+
+  <!-- Secciones de la carta (render por JS) -->
+  <main id="menuRoot"></main>
+
+  <!-- Contraportada / contacto -->
+  <footer class="mcontact" id="contacto">
+    <div class="mcontact__brand">
+      <span class="mcontact__script"><span class="don">Don</span> Martín</span>
+      <span class="mcontact__cafe">C&nbsp;A&nbsp;F&nbsp;É</span>
+    </div>
+    <p class="mcontact__addr">Av. Circunvalar #5-83 · segundo piso, restaurante La Patatería · Pereira</p>
+    <p class="mcontact__write"><span>Escríbenos:</span>
+      <a href="https://wa.me/573150002700" target="_blank" rel="noopener" data-hover>315 000 2700</a>
+      ·
+      <a href="tel:6063433017" data-hover>606 343 3017</a>
+    </p>
+    <div class="mcontact__actions">
+      <a class="mbtn mbtn--solid" data-hover target="_blank" rel="noopener" href="https://www.instagram.com/cafedonmartin_/">Instagram</a>
+      <a class="mbtn mbtn--ghost" data-hover href="./">Volver al inicio</a>
+    </div>
+    <p class="mcontact__copy">© <span id="year">2026</span> Café Don Martín · Carta sujeta a cambios</p>
+  </footer>
+
+  <script type="module" src="/src/menu.js"></script>
+</body>
+</html>
