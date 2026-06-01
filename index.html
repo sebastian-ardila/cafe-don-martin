@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Don Martin · Café de especialidad · Circunvalar, Pereira</title>
+  <meta name="description" content="Café Don Martin — café de especialidad en la Av. Circunvalar #5-83, frente al Parque Arboleda, Pereira. Tueste artesanal, métodos de extracción y un espacio para los amantes del buen café." />
+  <meta name="theme-color" content="#0d0805" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Café Don Martin · Café de especialidad" />
+  <meta property="og:description" content="Café de especialidad en la Circunvalar de Pereira. Av. Circunvalar #5-83, frente al Parque Arboleda." />
+  <meta property="og:image" content="/assets/images/latte-art.jpg" />
+
+  <!-- Fuentes: Fraunces (display serif) + Manrope (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <!-- Grain / noise overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Cursor personalizado -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <div class="preloader__mark">
+        <span>C</span><span>D</span><span>M</span>
+      </div>
+      <div class="preloader__bar"><i></i></div>
+      <div class="preloader__label">Café de especialidad · Pereira</div>
+    </div>
+  </div>
+
+  <!-- Navegación -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="nav__brand" data-hover>
+      <span class="nav__brand-mark">☕</span>
+      <span class="nav__brand-text">Don&nbsp;Martin</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#historia" data-hover>Historia</a>
+      <a href="#menu" data-hover>Carta</a>
+      <a href="#galeria" data-hover>Galería</a>
+      <a href="#ubicacion" data-hover>Ubicación</a>
+    </nav>
+    <a href="https://wa.me/573000000000" target="_blank" rel="noopener" class="nav__cta" data-hover>
+      Reservar
+    </a>
+    <button class="nav__burger" id="burger" aria-label="Menú">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Menú móvil -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#historia" data-hover>Historia</a>
+    <a href="#menu" data-hover>Carta</a>
+    <a href="#galeria" data-hover>Galería</a>
+    <a href="#ubicacion" data-hover>Ubicación</a>
+    <a href="https://www.instagram.com/cafedonmartin_/" target="_blank" rel="noopener" data-hover>Instagram</a>
+  </div>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="three-canvas"></canvas>
+      <div class="hero__veil"></div>
+      <div class="hero__content">
+        <div class="hero__eyebrow reveal">
+          <span class="line"></span>
+          Pereira · Av. Circunvalar
+        </div>
+        <h1 class="hero__title">
+          <span class="reveal-word">Café</span>
+          <span class="reveal-word hero__title--italic">Don&nbsp;Martin</span>
+        </h1>
+        <p class="hero__sub reveal">
+          Café de especialidad tostado con alma. Un ritual de origen, método y
+          paciencia en el corazón de la Circunvalar.
+        </p>
+        <div class="hero__actions reveal">
+          <a href="#menu" class="btn btn--gold" data-hover>
+            Ver la carta <em>↓</em>
+          </a>
+          <a href="#ubicacion" class="btn btn--ghost" data-hover>
+            Cómo llegar
+          </a>
+        </div>
+      </div>
+      <div class="hero__scroll reveal">
+        <span>Desliza</span>
+        <div class="hero__scroll-line"><i></i></div>
+      </div>
+      <div class="hero__marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Origen Colombia</span><span>•</span>
+          <span>Tueste artesanal</span><span>•</span>
+          <span>Métodos de extracción</span><span>•</span>
+          <span>Specialty Coffee</span><span>•</span>
+          <span>Origen Colombia</span><span>•</span>
+          <span>Tueste artesanal</span><span>•</span>
+          <span>Métodos de extracción</span><span>•</span>
+          <span>Specialty Coffee</span><span>•</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HISTORIA ===== -->
+    <section class="historia" id="historia">
+      <div class="historia__grid">
+        <div class="historia__media">
+          <div class="historia__img-wrap parallax-img">
+            <img src="/assets/images/barista.jpg" alt="Barista preparando café de especialidad en Café Don Martin" />
+          </div>
+          <div class="historia__badge">
+            <span class="historia__badge-num">2°</span>
+            <span class="historia__badge-txt">piso de La Patatería</span>
+          </div>
+        </div>
+        <div class="historia__text">
+          <div class="section-label reveal">— Nuestra historia</div>
+          <h2 class="reveal">
+            Un café que nació del <span class="ital">detalle</span> y la
+            obsesión por el origen.
+          </h2>
+          <p class="reveal">
+            Café Don Martin es un rincón de especialidad sobre la Av. Circunvalar,
+            justo frente al Parque Arboleda. Seleccionamos granos de fincas
+            colombianas, los tostamos buscando su perfil más honesto y los
+            servimos con la dedicación de quien entiende que un buen café
+            no se apura: se disfruta.
+          </p>
+          <p class="reveal">
+            Cada taza es una conversación entre el barista, el método y tú.
+            Bienvenido a un espacio pensado para los que saben distinguir.
+          </p>
+          <div class="historia__stats reveal">
+            <div class="stat">
+              <span class="stat__num" data-count="100">100</span><span class="stat__suf">%</span>
+              <span class="stat__label">Origen colombiano</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-count="6">6</span><span class="stat__suf">+</span>
+              <span class="stat__label">Métodos de extracción</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-count="100">100</span><span class="stat__suf">%</span>
+              <span class="stat__label">Tueste artesanal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MENÚ / CARTA ===== -->
+    <section class="menu" id="menu">
+      <div class="menu__head">
+        <div class="section-label reveal">— La carta</div>
+        <h2 class="reveal">Selección de la <span class="ital">casa</span></h2>
+        <p class="reveal">Cafés de especialidad, métodos y acompañamientos. Precios en COP.</p>
+      </div>
+      <div class="menu__grid" id="menuGrid">
+        <!-- Tarjetas inyectadas por JS (tilt 3D) -->
+      </div>
+    </section>
+
+    <!-- ===== GALERÍA ===== -->
+    <section class="galeria" id="galeria">
+      <div class="galeria__head">
+        <div class="section-label reveal">— El espacio</div>
+        <h2 class="reveal">Galería</h2>
+      </div>
+      <div class="galeria__grid" id="galeriaGrid">
+        <figure class="galeria__item galeria__item--tall" data-img="/assets/images/pour-over.jpg"><img src="/assets/images/pour-over.jpg" alt="Método pour over" loading="lazy" /></figure>
+        <figure class="galeria__item" data-img="/assets/images/espresso.jpg"><img src="/assets/images/espresso.jpg" alt="Espresso" loading="lazy" /></figure>
+        <figure class="galeria__item" data-img="/assets/images/cafe-interior.jpg"><img src="/assets/images/cafe-interior.jpg" alt="Interior del café" loading="lazy" /></figure>
+        <figure class="galeria__item galeria__item--wide" data-img="/assets/images/coffee-table.jpg"><img src="/assets/images/coffee-table.jpg" alt="Mesa con café" loading="lazy" /></figure>
+        <figure class="galeria__item" data-img="/assets/images/latte-art.jpg"><img src="/assets/images/latte-art.jpg" alt="Arte latte" loading="lazy" /></figure>
+        <figure class="galeria__item galeria__item--tall" data-img="/assets/images/pastry.jpg"><img src="/assets/images/pastry.jpg" alt="Repostería" loading="lazy" /></figure>
+        <figure class="galeria__item" data-img="/assets/images/cup-dark.jpg"><img src="/assets/images/cup-dark.jpg" alt="Taza de café" loading="lazy" /></figure>
+        <figure class="galeria__item" data-img="/assets/images/beans-closeup.jpg"><img src="/assets/images/beans-closeup.jpg" alt="Granos de café" loading="lazy" /></figure>
+      </div>
+      <p class="galeria__note reveal">Fotos de referencia — reemplázalas por las del local desde <a href="https://www.instagram.com/cafedonmartin_/" target="_blank" rel="noopener">@cafedonmartin_</a></p>
+    </section>
+
+    <!-- ===== UBICACIÓN ===== -->
+    <section class="ubicacion" id="ubicacion">
+      <div class="ubicacion__grid">
+        <div class="ubicacion__info">
+          <div class="section-label reveal">— Visítanos</div>
+          <h2 class="reveal">Te esperamos en la <span class="ital">Circunvalar</span></h2>
+          <div class="ubicacion__detail reveal">
+            <div class="udet">
+              <span class="udet__k">Dirección</span>
+              <span class="udet__v">Av. Circunvalar #5-83<br />2° piso de La Patatería — frente al Parque Arboleda</span>
+            </div>
+            <div class="udet">
+              <span class="udet__k">Ciudad</span>
+              <span class="udet__v">Pereira, Risaralda · Colombia</span>
+            </div>
+            <div class="udet">
+              <span class="udet__k">Horario</span>
+              <span class="udet__v">Lun – Sáb · 8:00 a.m. – 9:00 p.m.<br />Dom · 9:00 a.m. – 8:00 p.m.</span>
+            </div>
+          </div>
+          <div class="ubicacion__actions reveal">
+            <a class="btn btn--gold" data-hover target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&query=Av.+Circunvalar+5-83+Pereira+Parque+Arboleda">
+              Abrir en Google Maps ↗
+            </a>
+            <a class="btn btn--ghost" data-hover target="_blank" rel="noopener"
+               href="https://www.instagram.com/cafedonmartin_/">
+              Instagram
+            </a>
+          </div>
+        </div>
+        <div class="ubicacion__map reveal">
+          <iframe
+            title="Mapa Café Don Martin"
+            src="https://www.google.com/maps?q=Av.%20Circunvalar%205-83%20Pereira%20Parque%20Arboleda&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA / CONTACTO ===== -->
+    <section class="cta" id="contacto">
+      <div class="cta__inner">
+        <h2 class="reveal">¿Listo para tu próxima <span class="ital">taza</span>?</h2>
+        <p class="reveal">Síguenos, escríbenos o simplemente sube al segundo piso. El café ya está caliente.</p>
+        <div class="cta__actions reveal">
+          <a class="btn btn--gold btn--lg" data-hover target="_blank" rel="noopener" href="https://wa.me/573000000000">WhatsApp</a>
+          <a class="btn btn--ghost btn--lg" data-hover target="_blank" rel="noopener" href="https://www.instagram.com/cafedonmartin_/">@cafedonmartin_</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__mark">Café Don Martin</span>
+        <span class="footer__tag">Café de especialidad · Pereira</span>
+      </div>
+      <nav class="footer__nav">
+        <a href="#historia" data-hover>Historia</a>
+        <a href="#menu" data-hover>Carta</a>
+        <a href="#galeria" data-hover>Galería</a>
+        <a href="#ubicacion" data-hover>Ubicación</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Café Don Martin. Av. Circunvalar #5-83, Pereira.</span>
+      <span>Hecho con grano colombiano y mucho ☕</span>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
