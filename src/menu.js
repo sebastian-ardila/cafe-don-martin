@@ -237,13 +237,15 @@ function blockHTML(b) {
   return `${divider}<div class="mblock">${badge}${head}${desc}<div class="mblock__items">${b.items.map(itemHTML).join('')}</div></div>`
 }
 
-function sectionHTML(s) {
+function sectionHTML(s, i, total) {
   const note = s.note ? `<div class="msec__note"><span>Nota:</span> ${s.note}</div>` : ''
   const intro = s.intro ? `<p class="msec__intro">${s.intro}</p>` : ''
+  const num = `${String(i + 1).padStart(2, '0')}`
   return `
     <section class="msec msec--${s.theme}" id="${s.id}">
       <div class="msec__inner">
         <header class="msec__head">
+          <span class="msec__num">${num}<i>/${String(total).padStart(2, '0')}</i></span>
           <span class="msec__kicker">${s.kicker}</span>
           <h2 class="msec__title">${s.title}</h2>
         </header>
@@ -263,7 +265,7 @@ function renderNav() {
 
 function render() {
   const root = document.getElementById('menuRoot')
-  root.innerHTML = SECTIONS.map(sectionHTML).join('')
+  root.innerHTML = SECTIONS.map((s, i) => sectionHTML(s, i, SECTIONS.length)).join('')
   renderNav()
 }
 
@@ -313,19 +315,49 @@ function boot() {
     })
   }
 
-  // Reveals
-  gsap.utils.toArray('.msec__head, .msec__note, .msec__intro, .mblock').forEach((el) => {
-    gsap.from(el, { y: 40, opacity: 0, duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 88%' } })
+  // Reveals — encabezados y bloques
+  gsap.utils.toArray('.msec__head, .msec__note, .msec__intro, .mblock__badge, .mblock__sub, .mblock__desc').forEach((el) => {
+    gsap.from(el, { y: 30, opacity: 0, duration: .9, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 90%' } })
   })
+  // Ítems en cascada
+  ScrollTrigger.batch('.mi', {
+    start: 'top 94%',
+    onEnter: (els) => gsap.from(els, { y: 22, opacity: 0, duration: .7, stagger: .06, ease: 'power3.out', overwrite: true }),
+  })
+  // Ramas decorativas
   gsap.utils.toArray('.msec__branch .branch').forEach((el) => {
     gsap.from(el, { y: 60, opacity: 0, duration: 1.4, ease: 'power3.out',
       scrollTrigger: { trigger: el.closest('.msec'), start: 'top 70%' } })
   })
 
-  // Nav menú sticky con highlight
+  // Nav sticky
   const nav = document.getElementById('menuNav')
   ScrollTrigger.create({ start: 'top -60', onUpdate: (self) => nav.classList.toggle('is-scrolled', self.scroll() > 60) })
+
+  // Barra de progreso de lectura
+  const prog = document.getElementById('mprogress')
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (self) => { prog.style.transform = `scaleX(${self.progress})` } })
+
+  // Scrollspy — categoría activa en el nav
+  const navLinks = [...document.querySelectorAll('#menuNavLinks a')]
+  SECTIONS.forEach((s) => {
+    ScrollTrigger.create({
+      trigger: `#${s.id}`, start: 'top 45%', end: 'bottom 45%',
+      onToggle: (self) => {
+        if (!self.isActive) return
+        navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${s.id}`))
+      },
+    })
+  })
+
+  // Botón volver arriba
+  const top = document.getElementById('mtop')
+  ScrollTrigger.create({ start: 'top -500', end: 'max', onToggle: (self) => top.classList.toggle('is-visible', self.isActive) })
+  top.addEventListener('click', () => {
+    if (lenis) lenis.scrollTo(0, { duration: 1.2 })
+    else window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
 
   ScrollTrigger.refresh()
 }
