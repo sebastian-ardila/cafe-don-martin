@@ -13,8 +13,8 @@ export function initHero(canvas) {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const scene = new THREE.Scene()
-  // Niebla en tono habano para fundir los granos lejanos con el fondo claro
-  scene.fog = new THREE.FogExp2(0xece1ce, 0.042)
+  // Niebla en tono crema/durazno de marca para fundir los granos lejanos
+  scene.fog = new THREE.FogExp2(0xf6e6d2, 0.042)
 
   const camera = new THREE.PerspectiveCamera(
     42, window.innerWidth / window.innerHeight, 0.1, 100

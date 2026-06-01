@@ -13,10 +13,10 @@
   <meta property="og:description" content="Café de especialidad en la Circunvalar de Pereira. Av. Circunvalar #5-83, frente al Parque Arboleda." />
   <meta property="og:image" content="/assets/images/latte-art.jpg" />
 
-  <!-- Fuentes: Bricolage Grotesque (display moderna) + Manrope (body) -->
+  <!-- Fuentes de marca: Pacifico (script del logo) + Poppins (títulos) + Manrope (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/src/style.css" />
 </head>
@@ -32,9 +32,7 @@
   <!-- Preloader -->
   <div class="preloader" id="preloader">
     <div class="preloader__inner">
-      <div class="preloader__mark">
-        <span>C</span><span>D</span><span>M</span>
-      </div>
+      <div class="preloader__mark">Don Martín</div>
       <div class="preloader__bar"><i></i></div>
       <div class="preloader__label">Café de especialidad · Pereira</div>
     </div>
@@ -43,11 +41,8 @@
   <!-- Navegación -->
   <header class="nav" id="nav">
     <a href="#hero" class="nav__brand" data-hover>
-      <svg class="bean-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-        <ellipse cx="14" cy="14" rx="8" ry="11" transform="rotate(-22 14 14)" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M9.5 6.5 C 16 11, 12 17, 18.5 21.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <span class="nav__brand-text">Café Don&nbsp;Martin</span>
+      <span class="nav__brand-script">Don Martín</span>
+      <span class="nav__brand-cafe">C&nbsp;A&nbsp;F&nbsp;É</span>
     </a>
     <nav class="nav__links">
       <a href="#historia" data-hover>Historia</a>
@@ -83,8 +78,9 @@
           Pereira · Av. Circunvalar
         </div>
         <h1 class="hero__title">
-          <span class="reveal-word">Café</span>
-          <span class="reveal-word hero__title--italic">Don&nbsp;Martin</span>
+          <span class="hero__don reveal-word">Don</span>
+          <span class="hero__martin reveal-word">Martín</span>
+          <span class="hero__cafe reveal-word">C&nbsp;A&nbsp;F&nbsp;É</span>
         </h1>
         <p class="hero__sub reveal">
           Café de especialidad tostado con alma. Un ritual de origen, método y
@@ -252,13 +248,8 @@
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <span class="footer__mark">
-          <svg class="bean-mark footer__bean" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-            <ellipse cx="14" cy="14" rx="8" ry="11" transform="rotate(-22 14 14)" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M9.5 6.5 C 16 11, 12 17, 18.5 21.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-          Café Don Martin
-        </span>
+        <span class="footer__mark">Don Martín</span>
+        <span class="footer__cafe">C&nbsp;A&nbsp;F&nbsp;É</span>
         <span class="footer__tag">Café de especialidad · Pereira</span>
       </div>
       <nav class="footer__nav">
