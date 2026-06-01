@@ -21,8 +21,9 @@
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
-  <!-- Grain / noise overlay -->
+  <!-- Grain / noise overlay + viñeta -->
   <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
   <!-- Cursor personalizado -->
   <div class="cursor" aria-hidden="true"></div>
@@ -42,8 +43,11 @@
   <!-- Navegación -->
   <header class="nav" id="nav">
     <a href="#hero" class="nav__brand" data-hover>
-      <span class="nav__brand-mark">☕</span>
-      <span class="nav__brand-text">Don&nbsp;Martin</span>
+      <svg class="bean-mark" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <ellipse cx="14" cy="14" rx="8" ry="11" transform="rotate(-22 14 14)" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M9.5 6.5 C 16 11, 12 17, 18.5 21.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span class="nav__brand-text">Café Don&nbsp;Martin</span>
     </a>
     <nav class="nav__links">
       <a href="#historia" data-hover>Historia</a>
@@ -232,7 +236,9 @@
 
     <!-- ===== CTA / CONTACTO ===== -->
     <section class="cta" id="contacto">
+      <div class="cta__watermark" aria-hidden="true">Don Martin</div>
       <div class="cta__inner">
+        <div class="section-label cta__label reveal">— Reserva tu mesa</div>
         <h2 class="reveal">¿Listo para tu próxima <span class="ital">taza</span>?</h2>
         <p class="reveal">Síguenos, escríbenos o simplemente sube al segundo piso. El café ya está caliente.</p>
         <div class="cta__actions reveal">
@@ -246,7 +252,13 @@
   <footer class="footer">
     <div class="footer__top">
       <div class="footer__brand">
-        <span class="footer__mark">Café Don Martin</span>
+        <span class="footer__mark">
+          <svg class="bean-mark footer__bean" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <ellipse cx="14" cy="14" rx="8" ry="11" transform="rotate(-22 14 14)" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M9.5 6.5 C 16 11, 12 17, 18.5 21.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          Café Don Martin
+        </span>
         <span class="footer__tag">Café de especialidad · Pereira</span>
       </div>
       <nav class="footer__nav">
@@ -258,7 +270,7 @@
     </div>
     <div class="footer__bottom">
       <span>© <span id="year">2026</span> Café Don Martin. Av. Circunvalar #5-83, Pereira.</span>
-      <span>Hecho con grano colombiano y mucho ☕</span>
+      <span>Tostado y servido con dedicación · Origen 100% colombiano</span>
     </div>
   </footer>
 
