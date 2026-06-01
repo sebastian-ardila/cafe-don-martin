@@ -60,22 +60,29 @@ export function initHero(canvas) {
   scene.add(fill)
 
   // ---------- Geometría de un grano de café ----------
-  // Esfera deformada con una hendidura central (el "surco" del grano)
+  // Grano realista y ASIMÉTRICO: cuerpo ovalado que se estrecha en las puntas,
+  // una cara plana con surco central en "S" y la cara opuesta convexa (la panza).
   function makeBeanGeometry() {
-    const geo = new THREE.SphereGeometry(1, 64, 44)
+    const geo = new THREE.SphereGeometry(1, 96, 64)
     const pos = geo.attributes.position
-    const v = new THREE.Vector3()
     for (let i = 0; i < pos.count; i++) {
-      v.fromBufferAttribute(pos, i)
-      // Forma ovalada de grano
-      v.z *= 0.6
-      v.y *= 1.2
-      // Surco central pronunciado cerca de x≈0
-      const groove = Math.exp(-(v.x * v.x) / 0.04) * 0.42
-      v.z -= Math.sign(v.z || 1) * groove
-      // Micro-relieve orgánico
-      v.multiplyScalar(1 + Math.sin(v.y * 2.4) * 0.018 + Math.cos(v.x * 3.1) * 0.01)
-      pos.setXYZ(i, v.x, v.y, v.z)
+      const nx = pos.getX(i), ny = pos.getY(i), nz = pos.getZ(i)
+      // Estrechamiento hacia las puntas (extremos del eje largo Y) → forma de óvalo/almendra
+      const taper = 1 - Math.pow(Math.abs(ny), 3) * 0.18
+      const x = nx * 0.64 * taper
+      const y = ny * 1.0
+      let z
+      if (nz > 0) {
+        // Cara frontal: casi plana, con un surco central sinuoso (en S) a lo largo de Y
+        const sCurve = Math.sin(ny * 1.5) * 0.1           // serpenteo del surco
+        const dx = nx - sCurve
+        const groove = Math.exp(-(dx * dx) / 0.03) * nz * 0.22  // profundo al centro, se desvanece al borde
+        z = nz * 0.28 - groove
+      } else {
+        // Cara trasera: panza convexa (más abombada que la frontal)
+        z = nz * 0.5
+      }
+      pos.setXYZ(i, x, y, z)
     }
     geo.computeVertexNormals()
     return geo
