@@ -29,7 +29,7 @@ export function initHero(canvas) {
   renderer.setClearColor(0x000000, 0)
   // Render cinematográfico: tone mapping filmico + espacio de color correcto
   renderer.toneMapping = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 1.08
+  renderer.toneMappingExposure = 0.95
   renderer.outputColorSpace = THREE.SRGBColorSpace
 
   // ---------- Environment map (reflejos realistas) ----------
@@ -39,23 +39,23 @@ export function initHero(canvas) {
 
   // ---------- Luces ----------
   // Key cálida (sol de la mañana sobre el café)
-  const key = new THREE.DirectionalLight(0xfff0d4, 2.6)
+  const key = new THREE.DirectionalLight(0xfff0d4, 2.4)
   key.position.set(6, 7, 8)
   scene.add(key)
 
-  // Rim / contraluz fuerte: perfila los granos contra el fondo claro
-  const rim = new THREE.DirectionalLight(0xffe9c2, 3.2)
+  // Rim / contraluz suave: perfila los granos sin lavarlos
+  const rim = new THREE.DirectionalLight(0xffe9c2, 1.4)
   rim.position.set(-7, 3, -6)
   scene.add(rim)
 
   // Acento verde sutil (marca) que aparece en los bordes
-  const accent = new THREE.DirectionalLight(0x3a6b50, 0.9)
+  const accent = new THREE.DirectionalLight(0x3a6b50, 0.7)
   accent.position.set(-4, -5, 3)
   scene.add(accent)
 
-  scene.add(new THREE.AmbientLight(0xd8c6a6, 0.5))
+  scene.add(new THREE.AmbientLight(0xc7b08c, 0.35))
 
-  const fill = new THREE.PointLight(0xffd9a0, 8, 28)
+  const fill = new THREE.PointLight(0xffd9a0, 6, 28)
   fill.position.set(0, 0, 7)
   scene.add(fill)
 
@@ -94,16 +94,16 @@ export function initHero(canvas) {
   // reflejos del environment. Dos tonos para variedad natural.
   function beanMaterial(color) {
     return new THREE.MeshPhysicalMaterial({
-      color, roughness: 0.34, metalness: 0.0,
-      clearcoat: 0.7, clearcoatRoughness: 0.32,
-      sheen: 0.4, sheenColor: new THREE.Color(0x7a4a24),
-      envMapIntensity: 1.25,
+      color, roughness: 0.5, metalness: 0.0,
+      clearcoat: 0.4, clearcoatRoughness: 0.45,
+      sheen: 0.25, sheenColor: new THREE.Color(0x6b3f1d),
+      envMapIntensity: 0.45, // reflejo del entorno reducido para que no se laven sobre fondo claro
     })
   }
   const beanMats = [
     beanMaterial(0x3a2012), // tueste oscuro
-    beanMaterial(0x55301a), // tueste medio
-    beanMaterial(0x2a1810), // tueste muy oscuro
+    beanMaterial(0x4a2814), // tueste medio
+    beanMaterial(0x25140c), // tueste muy oscuro
   ]
 
   // ---------- Campo de granos ----------
@@ -112,11 +112,11 @@ export function initHero(canvas) {
   const beanGroup = new THREE.Group()
   for (let i = 0; i < beanCount; i++) {
     const m = new THREE.Mesh(beanGeo, beanMats[i % beanMats.length])
-    const r = 3.5 + Math.random() * 7.5
+    const r = 4.8 + Math.random() * 7
     const a = Math.random() * Math.PI * 2
     const y = (Math.random() - 0.5) * 12
     m.position.set(Math.cos(a) * r, y, Math.sin(a) * r - 3)
-    const s = 0.4 + Math.random() * 0.85
+    const s = 0.42 + Math.random() * 0.55
     m.scale.setScalar(s)
     m.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI)
     m.userData = {
