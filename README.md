@@ -1,64 +1,44 @@
-# ☕ Café Don Martin — Sitio web premium
+# ☕ Café Don Martín — Demo de sitio web
 
-Landing de una sola página para **Café Don Martin**, café de especialidad en la Av. Circunvalar #5-83 (frente al Parque Arboleda, 2° piso de La Patatería), Pereira, Risaralda.
+> Una propuesta de sitio web premium para **Café Don Martín**, el café de especialidad de la Circunvalar de Pereira.
 
-Estética *luxury specialty coffee*: espresso oscuro + dorado champagne, escena 3D en Three.js (granos flotando + partículas de aroma reactivas al mouse), smooth-scroll, animaciones GSAP, cursor personalizado, tarjetas con tilt 3D, galería con lightbox y grain overlay.
+## 🔗 Ver la demo en vivo
 
-## 🛠️ Stack
+### 👉 https://sebastian-ardila.github.io/cafe-don-martin/
 
-- **Vite** (build estático)
-- **Three.js** — escena 3D del hero
-- **GSAP + ScrollTrigger** — animaciones de scroll
-- **Lenis** — smooth scroll
-- CSS custom (sin frameworks)
+---
 
-## 🚀 Desarrollo
+## ✨ Qué incluye esta propuesta
 
-```bash
-npm install
-npm run dev      # servidor local con hot-reload
-npm run build    # genera /dist (estático)
-npm run preview  # sirve /dist localmente
-```
+Un sitio de una sola página, moderno y elegante, pensado para reflejar la calidad de un café de especialidad:
 
-## 🖼️ Reemplazar las imágenes por las reales del Instagram
+- **Portada con animación 3D** — granos de café flotando y partículas de aroma que reaccionan al movimiento del mouse.
+- **Identidad de marca** — el logotipo *Don Martín CAFÉ*, los colores crema y verde, y un estilo cálido y artesanal.
+- **Nuestra historia** — el alma del café contada con elegancia.
+- **La carta** — selección de cafés de especialidad y métodos de extracción.
+- **Galería** — un vistazo al espacio y a cada taza.
+- **Ubicación** — mapa de la Av. Circunvalar #5-83, frente al Parque Arboleda, con horarios.
+- **Contacto directo** — botones a WhatsApp e Instagram.
 
-Las fotos actuales en `public/assets/images/` son **placeholders premium** (Unsplash, libres). Instagram bloquea la descarga automática, así que reemplázalas manualmente:
+Todo con animaciones suaves, scroll cinematográfico y un diseño cuidado al detalle, optimizado también para celular.
 
-1. Entra a [@cafedonmartin_](https://www.instagram.com/cafedonmartin_/) y descarga las fotos del local.
-2. Sustituye los archivos en `public/assets/images/` **manteniendo el mismo nombre** (p. ej. `latte-art.jpg`, `cafe-interior.jpg`, `barista.jpg`…), o cambia las rutas en `index.html`.
-3. `npm run build` y vuelve a desplegar.
+---
 
-> Tamaño recomendado: ~1600px de ancho, JPG optimizado (<400 KB).
+## 📌 Esto es una demostración
 
-## 📦 Despliegue
+Algunos elementos son de muestra y se ajustan a lo real cuando el café lo confirme:
 
-### Opción A — S3 + CloudFront
+- **Fotos**: por ahora son imágenes de referencia. Se reemplazan por las fotos reales del local y de los productos (las de [@cafedonmartin_](https://www.instagram.com/cafedonmartin_/)).
+- **Carta y precios**: los cafés y valores son de ejemplo, listos para actualizar con la carta real.
+- **Horarios**: pendientes de confirmar.
 
-```bash
-npm run build
-aws s3 sync dist/ s3://TU-BUCKET --delete
-aws cloudfront create-invalidation --distribution-id TU_DIST_ID --paths "/*"
-```
+---
 
-El `base` por defecto es `/` (raíz del dominio), ideal para CloudFront con dominio propio.
+## 📍 Café Don Martín
 
-### Opción B — GitHub Pages
-
-Si publicas en `https://usuario.github.io/cafe-don-martin/`, compila con el subpath:
-
-```bash
-BASE=/cafe-don-martin/ npm run build
-```
-
-El workflow incluido en `.github/workflows/deploy.yml` lo hace automáticamente en cada push a `main`. Solo activa **Settings → Pages → Source: GitHub Actions** en el repositorio.
-
-Si usas un **dominio propio** en GitHub Pages (CNAME), deja `base` en `/` (no pases `BASE`).
-
-## 📍 Datos del local
-
-- **Dirección:** Av. Circunvalar #5-83, 2° piso de La Patatería (frente al Parque Arboleda)
-- **Ciudad:** Pereira, Risaralda, Colombia
+- **Dónde:** Av. Circunvalar #5-83 — 2.º piso de La Patatería, frente al Parque Arboleda · Pereira, Risaralda
 - **Instagram:** [@cafedonmartin_](https://www.instagram.com/cafedonmartin_/)
 
-> ✏️ Edita el número de WhatsApp (`wa.me/573000000000`) y los horarios en `index.html` por los reales.
+---
+
+*Propuesta de diseño y desarrollo web. ¿Hablamos de los detalles? El café ya está caliente.* ☕
