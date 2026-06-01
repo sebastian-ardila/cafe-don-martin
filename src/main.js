@@ -93,7 +93,8 @@ function initReveals() {
   // Hero (al cargar)
   const heroTl = gsap.timeline({ delay: 0.2 })
   heroTl
-    .from('.hero__title .reveal-word', { yPercent: 110, opacity: 0, duration: 1.2, stagger: 0.12, ease: 'power4.out' })
+    .from('.hero__kicker', { y: 20, opacity: 0, duration: .9, ease: 'power3.out' })
+    .from('.hero__brand .reveal-word', { yPercent: 60, opacity: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out' }, '-=0.5')
     .from('.hero__sub', { y: 30, opacity: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
     .from('.hero__actions', { y: 30, opacity: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
     .from('.hero__scroll', { opacity: 0, duration: 1 }, '-=0.6')
