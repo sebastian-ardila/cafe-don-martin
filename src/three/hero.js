@@ -9,7 +9,8 @@ export function initHero(canvas) {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const scene = new THREE.Scene()
-  scene.fog = new THREE.FogExp2(0x0b0604, 0.06)
+  // Niebla en tono habano para fundir los granos lejanos con el fondo claro
+  scene.fog = new THREE.FogExp2(0xece1ce, 0.05)
 
   const camera = new THREE.PerspectiveCamera(
     42, window.innerWidth / window.innerHeight, 0.1, 100
@@ -23,18 +24,18 @@ export function initHero(canvas) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.setClearColor(0x000000, 0)
 
-  // ---------- Luces ----------
-  const key = new THREE.DirectionalLight(0xffe6b0, 2.6)
+  // ---------- Luces (calibradas para fondo claro habano) ----------
+  const key = new THREE.DirectionalLight(0xfff1d8, 3.0)
   key.position.set(5, 6, 8)
   scene.add(key)
 
-  const rim = new THREE.DirectionalLight(0xc9a227, 1.8)
+  const rim = new THREE.DirectionalLight(0x2f5740, 1.4) // rim verde sutil (marca)
   rim.position.set(-6, -2, -4)
   scene.add(rim)
 
-  scene.add(new THREE.AmbientLight(0x2a190f, 1.2))
+  scene.add(new THREE.AmbientLight(0xd8c6a6, 1.6))
 
-  const fill = new THREE.PointLight(0xecc97f, 18, 30)
+  const fill = new THREE.PointLight(0xbd9263, 10, 30)
   fill.position.set(0, 0, 6)
   scene.add(fill)
 
@@ -61,8 +62,8 @@ export function initHero(canvas) {
 
   const beanGeo = makeBeanGeometry()
   const beanMat = new THREE.MeshStandardMaterial({
-    color: 0x3a2114, roughness: 0.45, metalness: 0.25,
-    emissive: 0x1a0d05, emissiveIntensity: 0.5,
+    color: 0x4a2c18, roughness: 0.5, metalness: 0.2,
+    emissive: 0x2a1608, emissiveIntensity: 0.15,
   })
 
   // ---------- Campo de granos ----------
@@ -117,19 +118,20 @@ export function initHero(canvas) {
     c.width = c.height = 64
     const ctx = c.getContext('2d')
     const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32)
-    g.addColorStop(0, 'rgba(236,201,127,0.9)')
-    g.addColorStop(0.4, 'rgba(201,162,39,0.35)')
-    g.addColorStop(1, 'rgba(201,162,39,0)')
+    g.addColorStop(0, 'rgba(154,108,63,0.95)')
+    g.addColorStop(0.4, 'rgba(120,84,48,0.45)')
+    g.addColorStop(1, 'rgba(120,84,48,0)')
     ctx.fillStyle = g
     ctx.fillRect(0, 0, 64, 64)
     const t = new THREE.CanvasTexture(c)
     return t
   })()
 
+  // Blending normal (no aditivo) para que las motas se vean sobre fondo claro
   const pMat = new THREE.PointsMaterial({
-    size: 0.18, map: pTex, transparent: true, depthWrite: false,
-    blending: THREE.AdditiveBlending, opacity: 0.85, sizeAttenuation: true,
-    color: 0xecc97f,
+    size: 0.16, map: pTex, transparent: true, depthWrite: false,
+    blending: THREE.NormalBlending, opacity: 0.55, sizeAttenuation: true,
+    color: 0x9a6c3f,
   })
   const points = new THREE.Points(pGeo, pMat)
   scene.add(points)

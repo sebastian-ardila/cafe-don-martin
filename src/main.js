@@ -25,37 +25,20 @@ const MENU = [
 function renderMenu() {
   const grid = document.getElementById('menuGrid')
   if (!grid) return
-  grid.innerHTML = MENU.map((m) => `
-    <article class="mcard" data-tilt>
-      <div class="mcard__head">
-        <h3 class="mcard__name">${m.name}</h3>
-        <span class="mcard__dots"></span>
-        <span class="mcard__price">${m.price}</span>
+  grid.innerHTML = MENU.map((m, i) => `
+    <article class="mcard">
+      <div class="mcard__top">
+        <span class="mcard__index">${String(i + 1).padStart(2, '0')}</span>
+        <span class="mcard__tag">${m.tag}</span>
       </div>
+      <h3 class="mcard__name">${m.name}</h3>
       <p class="mcard__desc">${m.desc}</p>
-      <span class="mcard__tag">${m.tag}</span>
+      <div class="mcard__foot">
+        <span class="mcard__price">${m.price}</span>
+        <span class="mcard__unit">COP</span>
+      </div>
     </article>
   `).join('')
-}
-
-/* ---------------- Tilt 3D en tarjetas ---------------- */
-function initTilt() {
-  if (reducedMotion) return
-  document.querySelectorAll('[data-tilt]').forEach((card) => {
-    card.addEventListener('pointermove', (e) => {
-      const r = card.getBoundingClientRect()
-      const px = (e.clientX - r.left) / r.width
-      const py = (e.clientY - r.top) / r.height
-      const rx = (py - 0.5) * -10
-      const ry = (px - 0.5) * 12
-      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`
-      card.style.setProperty('--mx', `${px * 100}%`)
-      card.style.setProperty('--my', `${py * 100}%`)
-    })
-    card.addEventListener('pointerleave', () => {
-      card.style.transform = 'perspective(900px) rotateX(0) rotateY(0)'
-    })
-  })
 }
 
 /* ---------------- Cursor personalizado ---------------- */
@@ -131,12 +114,6 @@ function initReveals() {
       yPercent: -12, ease: 'none',
       scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true },
     })
-  })
-
-  // Tarjetas de menú en stagger
-  ScrollTrigger.batch('.mcard', {
-    start: 'top 90%',
-    onEnter: (els) => gsap.from(els, { y: 60, opacity: 0, duration: 1, stagger: 0.1, ease: 'power3.out', overwrite: true }),
   })
 
   // Galería
@@ -232,7 +209,6 @@ function boot() {
     initSmoothScroll()
     initReveals()
     initCounters()
-    initTilt()
     ScrollTrigger.refresh()
   })
 }
