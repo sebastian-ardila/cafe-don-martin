@@ -1,16 +1,20 @@
 /* ============================================================
    Escena 3D del Hero — Three.js
    Granos de café flotando + sistema de partículas de "aroma/vapor"
-   reactivo al movimiento del mouse. Paleta espresso + dorado.
+   reactivo al movimiento del mouse.
+   Tema CLARO (habano): material físico con clearcoat (brillo aceitoso
+   del tostado), environment map para reflejos reales, tone mapping
+   cinematográfico y luz de contorno para perfilar los granos.
    ============================================================ */
 import * as THREE from 'three'
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 
 export function initHero(canvas) {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const scene = new THREE.Scene()
   // Niebla en tono habano para fundir los granos lejanos con el fondo claro
-  scene.fog = new THREE.FogExp2(0xece1ce, 0.05)
+  scene.fog = new THREE.FogExp2(0xece1ce, 0.042)
 
   const camera = new THREE.PerspectiveCamera(
     42, window.innerWidth / window.innerHeight, 0.1, 100
@@ -23,37 +27,54 @@ export function initHero(canvas) {
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.setClearColor(0x000000, 0)
+  // Render cinematográfico: tone mapping filmico + espacio de color correcto
+  renderer.toneMapping = THREE.ACESFilmicToneMapping
+  renderer.toneMappingExposure = 1.08
+  renderer.outputColorSpace = THREE.SRGBColorSpace
 
-  // ---------- Luces (calibradas para fondo claro habano) ----------
-  const key = new THREE.DirectionalLight(0xfff1d8, 3.0)
-  key.position.set(5, 6, 8)
+  // ---------- Environment map (reflejos realistas) ----------
+  const pmrem = new THREE.PMREMGenerator(renderer)
+  const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+  scene.environment = envTex
+
+  // ---------- Luces ----------
+  // Key cálida (sol de la mañana sobre el café)
+  const key = new THREE.DirectionalLight(0xfff0d4, 2.6)
+  key.position.set(6, 7, 8)
   scene.add(key)
 
-  const rim = new THREE.DirectionalLight(0x2f5740, 1.4) // rim verde sutil (marca)
-  rim.position.set(-6, -2, -4)
+  // Rim / contraluz fuerte: perfila los granos contra el fondo claro
+  const rim = new THREE.DirectionalLight(0xffe9c2, 3.2)
+  rim.position.set(-7, 3, -6)
   scene.add(rim)
 
-  scene.add(new THREE.AmbientLight(0xd8c6a6, 1.6))
+  // Acento verde sutil (marca) que aparece en los bordes
+  const accent = new THREE.DirectionalLight(0x3a6b50, 0.9)
+  accent.position.set(-4, -5, 3)
+  scene.add(accent)
 
-  const fill = new THREE.PointLight(0xbd9263, 10, 30)
-  fill.position.set(0, 0, 6)
+  scene.add(new THREE.AmbientLight(0xd8c6a6, 0.5))
+
+  const fill = new THREE.PointLight(0xffd9a0, 8, 28)
+  fill.position.set(0, 0, 7)
   scene.add(fill)
 
   // ---------- Geometría de un grano de café ----------
   // Esfera deformada con una hendidura central (el "surco" del grano)
   function makeBeanGeometry() {
-    const geo = new THREE.SphereGeometry(1, 48, 32)
+    const geo = new THREE.SphereGeometry(1, 64, 44)
     const pos = geo.attributes.position
     const v = new THREE.Vector3()
     for (let i = 0; i < pos.count; i++) {
       v.fromBufferAttribute(pos, i)
-      // Aplanar en Z para forma ovalada de grano
-      v.z *= 0.62
-      v.y *= 1.18
-      // Surco central: empujar hacia adentro cerca de x≈0
-      const groove = Math.exp(-(v.x * v.x) / 0.05) * 0.32
-      v.z -= Math.sign(v.z || 1) * groove * (v.z >= 0 ? 1 : 1)
-      v.multiplyScalar(1 + Math.sin(v.y * 2.0) * 0.015)
+      // Forma ovalada de grano
+      v.z *= 0.6
+      v.y *= 1.2
+      // Surco central pronunciado cerca de x≈0
+      const groove = Math.exp(-(v.x * v.x) / 0.04) * 0.42
+      v.z -= Math.sign(v.z || 1) * groove
+      // Micro-relieve orgánico
+      v.multiplyScalar(1 + Math.sin(v.y * 2.4) * 0.018 + Math.cos(v.x * 3.1) * 0.01)
       pos.setXYZ(i, v.x, v.y, v.z)
     }
     geo.computeVertexNormals()
@@ -61,22 +82,34 @@ export function initHero(canvas) {
   }
 
   const beanGeo = makeBeanGeometry()
-  const beanMat = new THREE.MeshStandardMaterial({
-    color: 0x4a2c18, roughness: 0.5, metalness: 0.2,
-    emissive: 0x2a1608, emissiveIntensity: 0.15,
-  })
+
+  // Material físico: café tostado con brillo aceitoso (clearcoat) y
+  // reflejos del environment. Dos tonos para variedad natural.
+  function beanMaterial(color) {
+    return new THREE.MeshPhysicalMaterial({
+      color, roughness: 0.34, metalness: 0.0,
+      clearcoat: 0.7, clearcoatRoughness: 0.32,
+      sheen: 0.4, sheenColor: new THREE.Color(0x7a4a24),
+      envMapIntensity: 1.25,
+    })
+  }
+  const beanMats = [
+    beanMaterial(0x3a2012), // tueste oscuro
+    beanMaterial(0x55301a), // tueste medio
+    beanMaterial(0x2a1810), // tueste muy oscuro
+  ]
 
   // ---------- Campo de granos ----------
   const beans = []
-  const beanCount = prefersReduced ? 14 : 30
+  const beanCount = prefersReduced ? 14 : 32
   const beanGroup = new THREE.Group()
   for (let i = 0; i < beanCount; i++) {
-    const m = new THREE.Mesh(beanGeo, beanMat)
-    const r = 4 + Math.random() * 7
+    const m = new THREE.Mesh(beanGeo, beanMats[i % beanMats.length])
+    const r = 3.5 + Math.random() * 7.5
     const a = Math.random() * Math.PI * 2
     const y = (Math.random() - 0.5) * 12
     m.position.set(Math.cos(a) * r, y, Math.sin(a) * r - 3)
-    const s = 0.35 + Math.random() * 0.7
+    const s = 0.4 + Math.random() * 0.85
     m.scale.setScalar(s)
     m.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI)
     m.userData = {
@@ -89,28 +122,25 @@ export function initHero(canvas) {
       floatAmp: 0.3 + Math.random() * 0.6,
       baseY: y,
       phase: Math.random() * Math.PI * 2,
-      depth: (r - 4) / 7,
+      depth: (r - 3.5) / 7.5,
     }
     beanGroup.add(m)
     beans.push(m)
   }
   scene.add(beanGroup)
 
-  // ---------- Partículas de aroma / vapor ----------
-  const pCount = prefersReduced ? 400 : 1100
+  // ---------- Partículas de aroma / motas de café ----------
+  const pCount = prefersReduced ? 380 : 900
   const pGeo = new THREE.BufferGeometry()
   const positions = new Float32Array(pCount * 3)
   const speeds = new Float32Array(pCount)
-  const sizes = new Float32Array(pCount)
   for (let i = 0; i < pCount; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 26
     positions[i * 3 + 1] = (Math.random() - 0.5) * 20
     positions[i * 3 + 2] = (Math.random() - 0.5) * 14 - 2
     speeds[i] = 0.2 + Math.random() * 0.8
-    sizes[i] = Math.random() * 0.08 + 0.02
   }
   pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-  pGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
   // Textura de partícula circular suave (canvas → sprite)
   const pTex = (() => {
@@ -118,30 +148,29 @@ export function initHero(canvas) {
     c.width = c.height = 64
     const ctx = c.getContext('2d')
     const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32)
-    g.addColorStop(0, 'rgba(154,108,63,0.95)')
-    g.addColorStop(0.4, 'rgba(120,84,48,0.45)')
-    g.addColorStop(1, 'rgba(120,84,48,0)')
+    g.addColorStop(0, 'rgba(122,74,36,0.95)')
+    g.addColorStop(0.4, 'rgba(90,55,28,0.4)')
+    g.addColorStop(1, 'rgba(90,55,28,0)')
     ctx.fillStyle = g
     ctx.fillRect(0, 0, 64, 64)
-    const t = new THREE.CanvasTexture(c)
-    return t
+    return new THREE.CanvasTexture(c)
   })()
 
   // Blending normal (no aditivo) para que las motas se vean sobre fondo claro
   const pMat = new THREE.PointsMaterial({
-    size: 0.16, map: pTex, transparent: true, depthWrite: false,
-    blending: THREE.NormalBlending, opacity: 0.55, sizeAttenuation: true,
-    color: 0x9a6c3f,
+    size: 0.15, map: pTex, transparent: true, depthWrite: false,
+    blending: THREE.NormalBlending, opacity: 0.5, sizeAttenuation: true,
+    color: 0x8a5a32,
   })
   const points = new THREE.Points(pGeo, pMat)
   scene.add(points)
 
   // ---------- Interacción con el mouse ----------
   const mouse = new THREE.Vector2(0, 0)
-  const target = new THREE.Vector2(0, 0)
+  const targetM = new THREE.Vector2(0, 0)
   window.addEventListener('pointermove', (e) => {
-    target.x = (e.clientX / window.innerWidth - 0.5) * 2
-    target.y = (e.clientY / window.innerHeight - 0.5) * 2
+    targetM.x = (e.clientX / window.innerWidth - 0.5) * 2
+    targetM.y = (e.clientY / window.innerHeight - 0.5) * 2
   })
 
   // ---------- Scroll parallax ----------
@@ -158,18 +187,16 @@ export function initHero(canvas) {
     const dt = clock.getDelta()
 
     // Suavizado del mouse
-    mouse.x += (target.x - mouse.x) * 0.05
-    mouse.y += (target.y - mouse.y) * 0.05
+    mouse.x += (targetM.x - mouse.x) * 0.05
+    mouse.y += (targetM.y - mouse.y) * 0.05
 
-    // Granos: rotación + flotación + repulsión sutil del cursor
+    // Granos: rotación + flotación
     for (const b of beans) {
       const u = b.userData
       b.rotation.x += u.rotSpeed.x * dt
       b.rotation.y += u.rotSpeed.y * dt
       b.rotation.z += u.rotSpeed.z * dt
       b.position.y = u.baseY + Math.sin(t * u.floatSpeed + u.phase) * u.floatAmp
-      // parallax por profundidad respecto al mouse
-      b.position.x += (mouse.x * (1 + u.depth * 2) - (b.position.x - Math.cos(u.phase) * 6) * 0) * 0
     }
 
     // El grupo entero reacciona al mouse (parallax orbital)
@@ -182,9 +209,7 @@ export function initHero(canvas) {
       let y = pos.getY(i) + speeds[i] * dt * 0.6
       if (y > 11) y = -11
       pos.setY(i, y)
-      // deriva horizontal con el mouse
-      let x = pos.getX(i) + Math.sin(t * 0.3 + i) * 0.002 + mouse.x * 0.004
-      pos.setX(i, x)
+      pos.setX(i, pos.getX(i) + Math.sin(t * 0.3 + i) * 0.002 + mouse.x * 0.004)
     }
     pos.needsUpdate = true
     points.rotation.y = mouse.x * 0.1
