@@ -19,12 +19,31 @@
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="mprogress" id="mprogress" aria-hidden="true"></div>
 
-  <!-- Nav sticky -->
-  <header class="mnav" id="menuNav">
-    <a href="./" class="mnav__back" data-hover>← Inicio</a>
-    <nav class="mnav__links" id="menuNavLinks"></nav>
-    <a href="#contacto" class="mnav__cta" data-hover>Contacto</a>
+  <!-- Navbar principal (igual que el sitio) -->
+  <header class="mtopnav" id="topnav">
+    <a href="./" class="mtopnav__brand" data-hover>
+      <span class="mtopnav__script"><span class="don">Don</span> Martín</span>
+      <span class="mtopnav__cafe">C&nbsp;A&nbsp;F&nbsp;É</span>
+    </a>
+    <nav class="mtopnav__links">
+      <a href="./#historia" data-hover>Historia</a>
+      <a href="menu.html" class="is-current" data-hover>Carta</a>
+      <a href="./#galeria" data-hover>Galería</a>
+      <a href="./#ubicacion" data-hover>Ubicación</a>
+    </nav>
+    <a href="https://wa.me/573177822100?text=Hola%20te%20hablo%20de%20cafe%20don%20martin%20para%20decirte%20que%20me%20encanto%20la%20demo%20de%20nuestra%20pagina%20web%20y%20me%20gustaria%20agendar%20una%20reunion%20para%20mas%20detalle%2C%20gracias" target="_blank" rel="noopener" class="mtopnav__cta" data-hover>Reservar</a>
+    <button class="mtopnav__burger" id="burger" aria-label="Menú"><span></span><span></span></button>
   </header>
+
+  <!-- Menú móvil -->
+  <div class="mmobile" id="mobileMenu">
+    <a href="./" data-hover>Inicio</a>
+    <a href="./#historia" data-hover>Historia</a>
+    <a href="menu.html" data-hover>Carta</a>
+    <a href="./#galeria" data-hover>Galería</a>
+    <a href="./#ubicacion" data-hover>Ubicación</a>
+    <a href="https://www.instagram.com/cafedonmartin_/" target="_blank" rel="noopener" data-hover>Instagram</a>
+  </div>
 
   <!-- Portada -->
   <section class="mcover">
@@ -39,6 +58,14 @@
       <span class="mcover__scroll-line"><i></i></span>
     </a>
   </section>
+
+  <!-- Menú secundario: categorías de la carta (sticky) -->
+  <nav class="msubnav" id="menuSubnav">
+    <div class="msubnav__inner">
+      <span class="msubnav__label">Carta</span>
+      <div class="msubnav__links" id="menuNavLinks"></div>
+    </div>
+  </nav>
 
   <!-- Secciones de la carta (render por JS) -->
   <main id="menuRoot"></main>

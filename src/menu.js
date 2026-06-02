@@ -310,10 +310,16 @@ function boot() {
     document.querySelectorAll('a[href^="#"]').forEach((a) => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href')
-        if (id.length > 1) { e.preventDefault(); lenis.scrollTo(id, { offset: -70, duration: 1.3 }) }
+        if (id.length > 1) { e.preventDefault(); lenis.scrollTo(id, { offset: -104, duration: 1.3 }); closeMobile() }
       })
     })
   }
+
+  // Menú móvil (navbar principal)
+  const burger = document.getElementById('burger')
+  const mobile = document.getElementById('mobileMenu')
+  function closeMobile() { burger?.classList.remove('is-open'); mobile?.classList.remove('is-open') }
+  burger?.addEventListener('click', () => { burger.classList.toggle('is-open'); mobile.classList.toggle('is-open') })
 
   // Reveals — encabezados y bloques
   gsap.utils.toArray('.msec__head, .msec__note, .msec__intro, .mblock__badge, .mblock__sub, .mblock__desc').forEach((el) => {
@@ -331,8 +337,8 @@ function boot() {
       scrollTrigger: { trigger: el.closest('.msec'), start: 'top 70%' } })
   })
 
-  // Nav sticky
-  const nav = document.getElementById('menuNav')
+  // Navbar principal: estado scrolled
+  const nav = document.getElementById('topnav')
   ScrollTrigger.create({ start: 'top -60', onUpdate: (self) => nav.classList.toggle('is-scrolled', self.scroll() > 60) })
 
   // Barra de progreso de lectura
